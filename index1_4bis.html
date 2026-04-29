@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الكويز رقم 01- Quiz N°01</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+      direction: rtl;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      border-radius: 20px;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    header img {
+      height: 80px;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+      transition: transform 0.3s ease;
+    }
+
+    header img:hover {
+      transform: scale(1.05);
+    }
+
+    header h2 {
+      flex: 1;
+      text-align: center;
+      font-size: 1.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-container {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 15px;
+      margin-top: 20px;
+    }
+
+    .form-title {
+      font-size: 1.8rem;
+      color: #2a5298;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #2a5298;
+      font-size: 1rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    }
+
+    .note {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      color: #856404;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      line-height: 1.8;
+        text-align: center;
+         
+    }
+
+    .compteur {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #e74c3c;
+      background: #fdf0ef;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .progress-text {
+      text-align: center;
+      color: #666;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .progress-bar {
+      background: #e0e0e0;
+      height: 12px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 25px;
+    }
+
+    .progress-bar div {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      transition: width 0.5s ease;
+      border-radius: 10px;
+    }
+
+    .question-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .question-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .question-number, .question-level {
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .question-number {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+
+    .question-level {
+      background: #f3e5f5;
+      color: #7b1fa2;
+    }
+
+    .question-title {
+      margin-bottom: 25px;
+    }
+
+    .question-text-ar {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #333;
+      margin-bottom: 15px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border-right: 4px solid #667eea;
+    }
+
+    .question-code {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 10px;
+      font-family: 'Courier New', 'Consolas', monospace;
+      font-size: 1rem;
+      overflow-x: auto;
+      direction: ltr;
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .option-item:hover {
+      border-color: #667eea;
+      background: #f8f9ff;
+      transform: translateX(-5px);
+    }
+
+    .option-item.selected {
+      border-color: #667eea;
+      background: linear-gradient(135deg, #f8f9ff, #fff);
+      box-shadow: 0 2px 8px rgba(102,126,234,0.2);
+    }
+
+    .option-item input[type="radio"] {
+      margin-left: 15px;
+      transform: scale(1.2);
+      cursor: pointer;
+    }
+
+    .option-label {
+      min-width: 35px;
+      height: 35px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #667eea;
+      color: white;
+      border-radius: 50%;
+      font-weight: bold;
+      margin-left: 15px;
+    }
+
+    .option-text {
+      flex: 1;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .code-inline {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      direction: ltr;
+      display: inline-block;
+    }
+
+
+
+    .answer-area {
+      margin-top: 20px;
+    }
+
+    .answer-label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #2a5298;
+      font-size: 1rem;
+    }
+
+    .answer-textbox {
+      width: 100%;
+      min-height: 140px;
+      padding: 14px;
+      border: 2px solid #dbe5ef;
+      border-radius: 12px;
+      font-size: 1rem;
+      line-height: 1.8;
+      resize: vertical;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background: #fcfdff;
+      transition: all 0.3s ease;
+    }
+
+    .answer-textbox:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102,126,234,0.12);
+      background: white;
+    }
+
+    .answer-help {
+      margin-top: 8px;
+      color: #666;
+      font-size: 0.92rem;
+    }
+
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .result-box {
+      text-align: center;
+      padding: 30px;
+    }
+    
+    .info-message {
+      background: #e8f0fe;
+      border-right: 5px solid #667eea;
+      padding: 20px;
+      border-radius: 15px;
+      margin: 25px 0;
+      text-align: right;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #2c3e50;
+      text-align: center;
+    }
+    
+    .colab-link {
+      display: inline-block;
+      margin-top: 20px;
+      background: #1f3b4c;
+      background: linear-gradient(135deg, #1f3b4c, #2c5a6e);
+      color: white;
+      text-decoration: none;
+      padding: 14px 30px;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .colab-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #2c5a6e, #1f3b4c);
+    }
+
+    .score-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #e67e22;
+      margin: 20px 0;
+    }
+
+    .status-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      color: #666;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 10px;
+        padding: 15px;
+      }
+
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      header h2 {
+        font-size: 1rem;
+      }
+
+      header img {
+        height: 50px;
+      }
+
+      .question-text-ar {
+        font-size: 1rem;
+      }
+
+      .question-text-ar,
+      .question-code {
+       white-space: pre-wrap;
+      }
+
+      .question-code {
+        font-size: 0.85rem;
+      }
+
+      .btn {
+        padding: 8px 20px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="images/logo_faculte.png" alt="شعار الكلية" onerror="this.style.display='none'">
+    <h2>
+      كلية العلوم الاقتصادية والتجارية وعلوم التسيير<br>
+      قسم الاقتصاد<br>
+      السنة الأولى ماستر
+      اقتصاد وتسيير المؤسسات
+    </h2>
+    <img src="images/logo_departement.png" alt="شعار القسم" onerror="this.style.display='none'">
+  </header>
+
+  <div class="container" id="start-page">
+    <div class="form-container">
+      <div class="form-title"> كويز رقم 01</div>
+      <div class="note">
+         هذا الكويز بنقسم الى جزئين <br>
+          <strong>الجزء الاول</strong> يحتوي على 40 سؤالاً وكل سؤال يحتاج إلى إجابة كتابية قصيرة يمكنك التنقل بين الأسئلة وكتابة الجواب <br>
+          سيتم تسجيل إجاباتك تلقائياً عند الانتهاء<br>
+         <strong> الجزء الثاني</strong> عبارة عن كود يتم كتابته في google colab
+      </div>
+
+      <div class="form-group">
+        <label>الاسم:</label>
+        <input type="text" id="name" placeholder="الاسم" required>
+      </div>
+
+      <div class="form-group">
+        <label>اللقب:</label>
+        <input type="text" id="surname" placeholder="اللقب" required>
+      </div>
+
+      <div class="form-group">
+        <label>رقم التسجيل:</label>
+        <input type="text" id="regNumber" placeholder=" رقم التسجيل" required>
+      </div>
+
+      <div class="form-group">
+        <label>البريد الإلكتروني:</label>
+        <input type="email" id="email" placeholder="example@univ.dz" required>
+      </div>
+
+      <div style="text-align: center;">
+        <button class="btn" onclick="startExam()"> ابدأ الكويز</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container hidden" id="question-page">
+    <div class="compteur" id="compteur"> الوقت المستغرق: 0 دقيقة و 0 ثانية</div>
+    <div class="progress-text" id="progress-text">السؤال 1 / 40</div>
+    <div class="progress-bar"><div id="progress"></div></div>
+
+    <div class="question-card">
+      <div class="question-meta">
+        <span class="question-number" id="question-number-badge">كل سؤال على 0,5 نقطة</span>
+        <span class="question-level" id="question-level-badge">المستوى: </span>
+      </div>
+
+      <div class="question-title">
+        <div id="question-title"></div>
+      </div>
+
+      <div class="answer-area">
+        <label class="answer-label" for="written-answer">اكتب الإجابة هنا:</label>
+        <textarea id="written-answer" class="answer-textbox" placeholder="اكتب إجابتك هنا بشكل واضح..."></textarea>
+        <div class="answer-help">يتم حفظ الإجابة تلقائياً عند الانتقال إلى السؤال التالي أو السابق.</div>
+      </div>
+    </div>
+
+    <div class="navigation-buttons">
+      <button class="btn" onclick="previousQuestion()">▶ السابق</button>
+      <button class="btn" id="next-btn" onclick="nextQuestion()">التالي◀ </button>
+      <button class="btn hidden" id="finish-btn" onclick="endExam()"> إنهاء الاختبار</button>
+    </div>
+  </div>
+
+  <div class="container hidden" id="result-page">
+    <div class="result-box">
+      <h1>تم إكمال الكويز بنجاح</h1>
+      <div class="info-message">
+        <strong>شكراً لك على إتمام الكويز</strong><br>
+      </div>
+      
+      <p id="student-summary" style="font-size: 1.1rem; margin: 20px 0; background: #f0f2f5; padding: 12px; border-radius: 12px;"></p>
+      
+      <div class="score-value">
+         النتائج قيد المراجعة
+      </div>
+      
+      <div id="save-status" class="status-box" style="background: #e9f7ef; color: #2e6b3e;">
+        جاري حفظ إجاباتك...
+      </div>
+      
+      <div style="margin-top: 35px; border-top: 1px solid #e0e0e0; padding-top: 25px;">
+        <p style="margin-bottom: 40px; font-weight: bold; color: #2a5298;"> متابعة الكويز - الجزء الثاني (Google Colab)</p>
+        <a id="colab-part2-link" href="#" target="_blank" class="colab-link">
+           انتقل إلى الجزء الثاني من الكويز على Google Colab
+        </a>
+        
+      </div>
+      
+      <button class="btn" id="retry-save-btn" onclick="saveAnswersToGoogleSheet(true)" style="margin-top: 25px; background: #4a6fa5;">🔄 إعادة محاولة الحفظ (إن لزم)</button>
+    </div>
+  </div>
+
+  
+  <script>
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwFN7ZxQ9sZqETdleB1V5ndWagg2_FEbRqCe2KGov2Q01K3vU7kZ4fYqxM2-uXFNIKn/exec';
+    const COLAB_PART2_URL = 'index1_5bis.html'; 
+
+    const questions = [
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `print(10 // 3, 10 % 3, 2 ** 3)`,
+      answerText: '3 1 8',
+      acceptableAnswers: ['3 1 8', '3, 1, 8', '(3, 1, 8)']
+    },
+    {
+      q_ar: 'ما نوع الخطأ المتوقع في الكود التالي؟',
+      q_code: `x = "k"\nx = int(x)`,
+      answerText: 'ValueError',
+      acceptableAnswers: [
+        'ValueError',
+        'خطأ ValueError',
+        'قيمة غير صالحة للتحويل',
+        'خطأ في تحويل القيمة'
+      ]
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `for i in range(6):\n    if i == 3:\n        break\n    print(i)`,
+      answerText: '0 1 2',
+      acceptableAnswers: ['0 1 2', '0\n1\n2', '0,1,2', '0, 1, 2']
+    },
+    {
+      q_ar: 'ما المقصود بمنصة Google Colab؟',
+      q_code: `Google Colab`,
+      answerText: 'بيئة سحابية لتشغيل Python من المتصفح',
+      acceptableAnswers: [
+        'بيئة سحابية لتشغيل Python من المتصفح',
+        'بيئة عمل سحابية',
+        'منصة لتشغيل بايثون من المتصفح',
+        'تشغيل Python دون تثبيت محلي'
+      ]
+    },
+    {
+      q_ar: 'اكتب طريقة إنشاء متغير اسمه score وتخزين القيمة 40 داخله:',
+      q_code: `المتغير: score\nالقيمة: 40`,
+      answerText: 'score = 40',
+      acceptableAnswers: ['score = 40', 'score=40']
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `age = 18\nprint(age >= 18)`,
+      answerText: 'True',
+      acceptableAnswers: ['True', 'true']
+    },
+    {
+      q_ar: 'ما نوع البيانات الناتج عن تنفيذ التعليمة التالية؟',
+      q_code: `type(3.14).__name__`,
+      answerText: 'float',
+      acceptableAnswers: ['float', "'float'", '"float"']
+    },
+    {
+      q_ar: 'ما هو الموقع الرسمي الآمن لتحميل لغة Python؟',
+      q_code: `تحميل Python`,
+      answerText: 'python.org',
+      acceptableAnswers: ['python.org', 'www.python.org', 'https://www.python.org']
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `for i in range(4):\n    print(i)`,
+      answerText: '0 1 2 3',
+      acceptableAnswers: ['0 1 2 3', '0\n1\n2\n3', '0,1,2,3', '0, 1, 2, 3']
+    },
+    {
+      q_ar: 'ما هو الخطأ المرتكب في الكود التالي؟',
+      q_code: `def show():\nprint("Hello")`,
+      answerText: 'IndentationError',
+      acceptableAnswers: [
+        'IndentationError',
+        'خطأ في المسافة البادئة',
+        'خطأ المسافات البادئة',
+        'خطأ في الإزاحة'
+      ]
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `size = 2\nif size < 1:\n    print("small")\nelif size < 3:\n    print("medium")\nelse:\n    print("large")`,
+      answerText: 'medium',
+      acceptableAnswers: ['medium', '"medium"']
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `L = [1, 2, 3]\nL[1] = 9\nprint(L)`,
+      answerText: '[1, 9, 3]',
+      acceptableAnswers: ['[1, 9, 3]', '[1,9,3]']
+    },
+    {
+      q_ar: 'ما هو الامتداد الصحيح لملفات Python؟',
+      q_code: `ملف بايثون`,
+      answerText: '.py',
+      acceptableAnswers: ['.py', 'py']
+    },
+    {
+      q_ar: 'ما نوع الخطأ المتوقع في الكود التالي؟',
+      q_code: `d = {"name": "Ahmed"}\nprint(d["age"])`,
+      answerText: 'KeyError',
+      acceptableAnswers: [
+        'KeyError',
+        'خطأ KeyError',
+        'المفتاح غير موجود',
+        'طلب مفتاح غير موجود'
+      ]
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `import math\nprint(math.ceil(4.2), math.floor(4.8))`,
+      answerText: '5 4',
+      acceptableAnswers: ['5 4', '5, 4', '(5, 4)']
+    },
+    {
+      q_ar: 'لماذا الاسم التالي غير صحيح كاسم متغير في Python؟',
+      q_code: `4int`,
+      answerText: 'لا يمكن أن يبدأ اسم المتغير برقم',
+      acceptableAnswers: [
+        'لا يمكن أن يبدأ اسم المتغير برقم',
+        'يبدأ برقم',
+        'اسم المتغير لا يبدأ برقم',
+        'لأنه يبدأ برقم'
+      ]
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `for i in range(6):\n    if i == 3:\n        continue\n    print(i)`,
+      answerText: '0 1 2 4 5',
+      acceptableAnswers: ['0 1 2 4 5', '0\n1\n2\n4\n5', '0,1,2,4,5', '0, 1, 2, 4, 5']
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `age = 16\nif age >= 18:\n    print("You are adult")\nelse:\n    print("You are minor")`,
+      answerText: 'You are minor',
+      acceptableAnswers: ['You are minor', '"You are minor"']
+    },
+    {
+      q_ar: 'ما هو Visual Studio Code بالنسبة للمبرمج؟',
+      q_code: `Visual Studio Code`,
+      answerText: 'محرر أكواد وليس لغة برمجة',
+      acceptableAnswers: [
+        'محرر أكواد وليس لغة برمجة',
+        'محرر أكواد',
+        'بيئة لكتابة وتشغيل الأكواد',
+        'أداة لكتابة البرامج'
+      ]
+    },
+    {
+      q_ar: 'ما نوع الخطأ المتوقع عند محاولة تعديل عنصر داخل tuple؟',
+      q_code: `t = (1, 2, 3)\nt[0] = 5`,
+      answerText: 'TypeError',
+      acceptableAnswers: [
+        'TypeError',
+        'خطأ TypeError',
+        'لا يمكن تعديل tuple',
+        'الصفوف غير قابلة للتغيير'
+      ]
+    },
+    {
+      q_ar: 'اكتب طريقة الوصول إلى العنصر الثاني في القائمة التالية:',
+      q_code: `numbers = [10, 20, 30]`,
+      answerText: 'numbers[1]',
+      acceptableAnswers: ['numbers[1]']
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ العملية التالية؟',
+      q_code: `5 + 3 * 2`,
+      answerText: '11',
+      acceptableAnswers: ['11']
+    },
+    {
+      q_ar: 'من بين الأسماء التالية، اكتب اسما صحيحا للمتغير:',
+      q_code: `4int    my-int    my_int    for`,
+      answerText: 'my_int',
+      acceptableAnswers: ['my_int']
+    },
+    {
+      q_ar: 'ما هو الخطأ الناتج عن تنفيذ الكود التالي؟',
+      q_code: `x = 5\nprint(X)`,
+      answerText: 'NameError',
+      acceptableAnswers: [
+        'NameError',
+        'خطأ NameError',
+        'اسم غير معرف',
+        'خطأ اسم غير معرف'
+      ]
+    },
+    {
+      q_ar: 'اكتب أحد الأوامر التي تسمح بالدخول إلى المفسر التفاعلي لبايثون:',
+      q_code: `CMD`,
+      answerText: 'python',
+      acceptableAnswers: ['python', 'py']
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `count = 0\nwhile count < 3:\n    print(count)\n    count += 1`,
+      answerText: '0 1 2',
+      acceptableAnswers: ['0 1 2', '0\n1\n2', '0,1,2', '0, 1, 2']
+    },
+    {
+      q_ar: 'ما نوع البيانات الناتج عن تنفيذ التعليمة التالية؟',
+      q_code: `type(10).__name__`,
+      answerText: 'int',
+      acceptableAnswers: ['int', "'int'", '"int"']
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `x, y, z = 1, 2, 3\nprint(y)`,
+      answerText: '2',
+      acceptableAnswers: ['2']
+    },
+    {
+      q_ar: 'ما معنى الرمز # في Python؟',
+      q_code: `# هذا تعليق`,
+      answerText: 'تعليق لا ينفذ',
+      acceptableAnswers: [
+        'تعليق لا ينفذ',
+        'تعليق',
+        'comment',
+        'يستخدم لكتابة تعليق'
+      ]
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `import math\nprint(math.sqrt(36))`,
+      answerText: '6.0',
+      acceptableAnswers: ['6.0', '6']
+    },
+    {
+      q_ar: 'ما فائدة تفعيل الخيار التالي أثناء تثبيت Python؟',
+      q_code: `Add Python to PATH`,
+      answerText: 'يسمح للنظام بالتعرف على Python من سطر الأوامر',
+      acceptableAnswers: [
+        'يسمح للنظام بالتعرف على Python من سطر الأوامر',
+        'يسمح بتشغيل python من cmd',
+        'حتى يتعرف النظام على بايثون',
+        'لتشغيل بايثون من سطر الأوامر'
+      ]
+    },
+    {
+      q_ar: 'اكتب طريقة الوصول إلى عمر الشخص في القاموس التالي:',
+      q_code: `person = {"name": "Ahmed", "age": 30}`,
+      answerText: `person["age"]`,
+      acceptableAnswers: [`person["age"]`, `person['age']`]
+    },
+    {
+      q_ar: 'ما نوع الخطأ المتوقع في الكود التالي؟',
+      q_code: `y = 5\nz = "7"\nprint(y + z)`,
+      answerText: 'TypeError',
+      acceptableAnswers: [
+        'TypeError',
+        'خطأ TypeError',
+        'عدم توافق أنواع البيانات',
+        'خطأ في نوع البيانات'
+      ]
+    },
+    {
+      q_ar: 'ما هي العلامة التي تظهر عادة عند الدخول إلى المفسر التفاعلي في Python؟',
+      q_code: `Python Interpreter`,
+      answerText: '>>>',
+      acceptableAnswers: ['>>>']
+    },
+    {
+      q_ar: 'اكتب أمرا للتحقق من تثبيت Python وظهور رقم الإصدار:',
+      q_code: `CMD`,
+      answerText: 'python --version',
+      acceptableAnswers: ['python --version', 'python3 --version', 'py --version']
+    },
+    {
+      q_ar: 'احسب تكلفة الإقامة للمريض حسب المعطيات التالية:',
+      q_code: `bed_cost_per_day = 6000\navg_length_of_stay = 4\nstay_cost = bed_cost_per_day * avg_length_of_stay\nprint(stay_cost)`,
+      answerText: '24000',
+      acceptableAnswers: ['24000']
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `print("Hello Python!")`,
+      answerText: 'Hello Python!',
+      acceptableAnswers: ['Hello Python!', '"Hello Python!"']
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي مع تفسير السلوك؟',
+      q_code: `x = [1, 2, 3]\ny = x\ny[0] = 10\nprint(x, y)`,
+      answerText: '[10, 2, 3] [10, 2, 3]',
+      acceptableAnswers: [
+        '[10, 2, 3] [10, 2, 3]',
+        '[10,2,3] [10,2,3]',
+        '(10, 2, 3) (10, 2, 3)'
+      ]
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `def func(val, lst=[]):\n    lst.append(val)\n    return lst\n\nprint(func(1))\nprint(func(2))`,
+      answerText: '[1] [1, 2]',
+      acceptableAnswers: [
+        '[1]\n[1, 2]',
+        '[1] [1, 2]',
+        '[1],[1,2]'
+      ]
+    },
+    {
+      q_ar: 'ما هي النتيجة المتوقعة لتنفيذ الكود التالي؟',
+      q_code: `for i in range(3):\n    print(i)\nelse:\n    print("Done")`,
+      answerText: '0 1 2 Done',
+      acceptableAnswers: [
+        '0 1 2 Done',
+        '0\n1\n2\nDone',
+        '0,1,2,Done'
+      ]
+    }
+
+  ];
+
+    let currentQuestion = 0;
+    let answers = new Array(questions.length).fill('');
+    let compteur = null;
+    const totalQuestions = questions.length;
+    const totalTime = totalQuestions * 120;
+    let remainingTime = totalTime;
+    let examFinished = false;
+    let saveAttempted = false;
+
+    window.addEventListener('DOMContentLoaded', function () {
+      const params = new URLSearchParams(window.location.search);
+      const regNumberFromUrl = params.get('regNumber');
+      const regInput = document.getElementById('regNumber');
+      if (regNumberFromUrl && regInput) {
+        regInput.value = regNumberFromUrl;
+        regInput.readOnly = true;
+      }
+      const colabLink = document.getElementById('colab-part2-link');
+      if (colabLink) colabLink.href = COLAB_PART2_URL;
+    });
+
+    function validateForm() {
+      const inputs = document.querySelectorAll('#start-page input');
+      for (const input of inputs) {
+        if (!input.value.trim()) {
+          alert('يرجى ملء جميع الحقول');
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function startExam() {
+      if (!validateForm()) return;
+      document.getElementById('start-page').classList.add('hidden');
+      document.getElementById('question-page').classList.remove('hidden');
+      renderQuestion();
+      startCompteur();
+    }
+
+    function startCompteur() {
+      updateCompteurText();
+      compteur = setInterval(() => {
+        if (examFinished) return;
+        remainingTime--;
+        updateCompteurText();
+        if (remainingTime <= 0) endExam(true);
+      }, 1000);
+    }
+
+    function updateCompteurText() {
+      const elapsedTime = totalTime - Math.max(remainingTime, 0);
+      document.getElementById('compteur').textContent = `الوقت المستغرق: ${formatTime(elapsedTime)}`;
+    }
+
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${minutes} دقيقة و ${secs} ثانية`;
+    }
+
+    function getQuestionLevel(index) {
+      if (index < 7) return '📘';
+      if (index < 14) return '📙';
+      return '📗';
+    }
+
+    function escapeHtml(text) {
+      if (text === undefined || text === null) return '';
+      const div = document.createElement('div');
+      div.textContent = String(text);
+      return div.innerHTML;
+    }
+
+    function formatQuestionTitle(question, questionNumber) {
+      let html = `<div class="question-number">السؤال ${questionNumber}</div>`;
+      if (question.q_ar) {
+        html += `<div class="question-text-ar">${escapeHtml(question.q_ar)}</div>`;
+      }
+      if (question.q_code && question.q_code.trim() !== '') {
+        const codeHtml = escapeHtml(question.q_code).replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');
+        html += `<div class="question-code">${codeHtml}</div>`;
+      }
+      return html;
+    }
+
+    function renderQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById('question-title').innerHTML = formatQuestionTitle(q, currentQuestion + 1);
+      document.getElementById('question-level-badge').textContent = getQuestionLevel(currentQuestion);
+      document.getElementById('progress-text').textContent = `السؤال ${currentQuestion + 1} من ${totalQuestions}`;
+      document.getElementById('progress').style.width = `${((currentQuestion + 1) / totalQuestions) * 100}%`;
+
+      const answerBox = document.getElementById('written-answer');
+      answerBox.value = answers[currentQuestion] || '';
+      answerBox.oninput = saveCurrentAnswer;
+
+      document.getElementById('finish-btn').classList.toggle('hidden', currentQuestion !== totalQuestions - 1);
+      document.getElementById('next-btn').classList.toggle('hidden', currentQuestion === totalQuestions - 1);
+    }
+
+    function saveCurrentAnswer() {
+      const answerBox = document.getElementById('written-answer');
+      if (answerBox) answers[currentQuestion] = answerBox.value.trim();
+    }
+
+    function nextQuestion() {
+      saveCurrentAnswer();
+      if (currentQuestion < totalQuestions - 1) {
+        currentQuestion++;
+        renderQuestion();
+      }
+    }
+
+    function previousQuestion() {
+      saveCurrentAnswer();
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+      }
+    }
+
+    function endExam(fromCompteur = false) {
+      if (examFinished) return;
+      saveCurrentAnswer();
+      examFinished = true;
+      clearInterval(compteur);
+
+      document.getElementById('question-page').classList.add('hidden');
+      document.getElementById('result-page').classList.remove('hidden');
+
+      const fullName = `${document.getElementById('name').value.trim()} ${document.getElementById('surname').value.trim()}`;
+      const regNum = document.getElementById('regNumber').value.trim();
+      const email = document.getElementById('email').value.trim();
+      
+      document.getElementById('student-summary').innerHTML = `
+        <strong>الطالب(ة):</strong> ${escapeHtml(fullName)}<br>
+        <strong>رقم التسجيل:</strong> ${escapeHtml(regNum)}<br>
+        <strong>البريد الإلكتروني:</strong> ${escapeHtml(email)}
+      `;
+      
+      // حفظ الإجابات فور الانتهاء
+      saveAnswersToGoogleSheet(false);
+    }
+    
+    function buildPayloadForSaving() {
+      const durationTaken = totalTime - Math.max(remainingTime, 0);
+      return {
+        name: document.getElementById('name').value.trim(),
+        surname: document.getElementById('surname').value.trim(),
+        regNumber: document.getElementById('regNumber').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        duration: durationTaken,
+        answers: JSON.stringify(
+          questions.map((q, i) => ({
+            questionArabic: q.q_ar,
+            questionCode: q.q_code || '',
+            studentAnswer: answers[i] || ''
+          }))
+        )
+      };
+    }
+
+    function saveAnswersToGoogleSheet(showRetryMessage = false) {
+      const saveStatusDiv = document.getElementById('save-status');
+      const retryBtn = document.getElementById('retry-save-btn');
+      
+      if (!saveStatusDiv) return;
+      
+      if (!saveAttempted || showRetryMessage) {
+        saveStatusDiv.innerHTML = ' جاري حفظ إجاباتك في قاعدة البيانات... يرجى الانتظار';
+        saveStatusDiv.style.background = "#fff3cd";
+        saveStatusDiv.style.color = "#856404";
+      }
+      
+      const payload = buildPayloadForSaving();
+      const formData = new FormData();
+      Object.keys(payload).forEach(key => formData.append(key, payload[key]));
+      
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          saveStatusDiv.innerHTML = ' تم تسجيل إجاباتك بنجاح. سيتم الإعلان عن النتيجة لاحقاً.';
+          saveStatusDiv.style.background = "#e9f7ef";
+          saveStatusDiv.style.color = "#2e6b3e";
+          saveAttempted = true;
+          if (retryBtn) retryBtn.style.display = 'none';
+        } else {
+          saveStatusDiv.innerHTML = ' حدث خطأ أثناء حفظ الإجابات: ' + (data.message || 'خطأ غير معروف') + '<br> يمكنك استخدام زر "إعادة محاولة الحفظ" لاحقاً.';
+          saveStatusDiv.style.background = "#f8d7da";
+          saveStatusDiv.style.color = "#721c24";
+          if (retryBtn) retryBtn.style.display = 'inline-block';
+        }
+      })
+      .catch(error => {
+        saveStatusDiv.innerHTML = ' تعذر الاتصال بخادم حفظ البيانات: ' + error.message + '<br> يرجى التحقق من اتصال الإنترنت وإعادة المحاولة لاحقاً.';
+        saveStatusDiv.style.background = "#f8d7da";
+        saveStatusDiv.style.color = "#721c24";
+        if (retryBtn) retryBtn.style.display = 'inline-block';
+      });
+    }
+  </script>
+
+</body>
+</html>
